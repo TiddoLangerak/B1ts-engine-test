@@ -1,8 +1,10 @@
+--Constants
 local tileWidth = 100;
 local tileHeight = tileWidth / 2;
-local tiles = {};
 local nrOfTilesX = display.contentWidth / tileWidth + 1
 local nrOfTilesY = 2 * display.contentHeight / tileHeight + 1
+
+local tiles = {};
 for i = 1, nrOfTilesX do 
 	tiles[i] = {}
 	for t = 1, nrOfTilesY do
