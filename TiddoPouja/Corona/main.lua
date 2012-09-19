@@ -4,6 +4,7 @@ local tileHeight = tileWidth / 2;
 local nrOfTilesX = display.contentWidth / tileWidth + 1
 local nrOfTilesY = 2 * display.contentHeight / tileHeight + 1
 
+--Eerst moeten alle tiles worden geladen en aangemaakt.
 local tiles = {};
 for i = 1, nrOfTilesX do 
 	tiles[i] = {}
@@ -18,6 +19,7 @@ for i = 1, nrOfTilesX do
 	end
 end
 
+--dan de tavern
 local tavern = display.newImage("assets/tavern.png")
 tavern.width = 100
 tavern.height = 102
@@ -26,12 +28,14 @@ tavern.y = 250
 tavern.x = 200
 tavern.alpha = 0.1
 
-function buildTavern(obj) 
+--met de tavern bouwer
+function tavern.build(obj) 
 	if obj.x < tavern.x and obj.x > tavern.x - tavern.width and obj.y < tavern.y and obj.y > tavern.y - tavern.height then
 		transition.to(tavern, {time = 500, alpha = 1})
 	end
 end
 
+--en dan maken we de piraat
 local pirate = display.newImage("assets/pirate.png")
 pirate.width = 50
 pirate.height = 55
@@ -43,7 +47,7 @@ function pirate:touch( event )
 		local dy = pirate.y - event.y
 		local distance = math.sqrt(dx*dx + dy*dy)
 		local speed = 1
-		transition.to(pirate, {time = distance/speed, x=event.x, y = event.y, onComplete = buildTavern})
+		transition.to(pirate, {time = distance/speed, x=event.x, y = event.y, onComplete = tavern.build})
 	end
 end
 Runtime:addEventListener("touch", pirate)
